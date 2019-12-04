@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta charset='utf-8'>
+	<title>CPU信息</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<base href="../" /> 
+	<link rel="stylesheet" href="./css/mdui.min.css"> 
+	<link rel="stylesheet" href="./css/guanli.css">  
+</head>
+
+<body class="mdui-theme-primary-indigo mdui-theme-accent-pink">
+	<div class="mdui-container mdui-typo container">  
+		<p>时间段:&nbsp;&nbsp;<select  id="dirNamesList" class="mdui-select" mdui-select ></select></p> 
+		<div   id="echartPanel">
+		</div>  
+	</div>
+</body>
+<script src="./js/echarts.min.js"></script> 
+<script src="./js/mdui.min.js"></script> 
+<script src="./js/base.js"></script>
+<script src="./js/util.js"></script>
+<script src="./js/config.js"></script>
+<script src="./js/api.js"></script> 
+<script src="./js/DrawChart.js"></script> 
+<script src="./js/CpusChart.js"></script>
+<script >
+domReady(function(){
+	//第一条记录dir
+	let firstDir; 
+	let myChart=new CpusChart(echartPanel); 
+	/**获取记录信息*/
+	function doGetDatas(){
+		api.adminServer.getDirNames(function(data){
+			dirNamesList.innerHTML="";
+			for(let dir of data){
+				let optionEle=document.createElement("option");
+				optionEle.innerText=dir;
+				optionEle.value=dir;
+				dirNamesList.appendChild(optionEle);
+			} 
+			new mdui.Select("#dirNamesList").handleUpdate();
+			if(data.length>0){
+				firstDir=data[0];
+				loadCharts(firstDir);
+			}else{
+				//停止
+				myChart.stop(); 
+			}
+		});
+	}
+	/**可以传入参数用于调试*/
+	function loadCharts(dir){ 
+		//是否自动刷新
+		let refresh=dir==firstDir;
+		//开始加载
+		myChart.load(dir,refresh); 		
+	} 
+	doGetDatas();	
+	dirNamesList.addEventListener("change",function(){
+		loadCharts(dirNamesList.value);
+	});
+});
+</script> 
+</html>

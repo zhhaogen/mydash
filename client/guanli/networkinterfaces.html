@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta charset='utf-8'>
+	<title>网卡信息</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<base href="../" /> 
+	<link rel="stylesheet" href="./css/mdui.min.css"> 
+	<link rel="stylesheet" href="./css/guanli.css">  
+</head>
+
+<body class="mdui-theme-primary-indigo mdui-theme-accent-pink">
+	<div class="mdui-container container">  
+		<table class="mdui-table mdui-table-hoverable" >
+				<thead><tr>
+					<th>网卡名称</th><th>IPv4/IPv6</th><th>IP地址</th><th>子网掩码</th><th>MAC地址</th><th>环回接口</th><th>IPv6作用域ID</th><th>CIDR</th>
+				</tr></thead>
+				<tbody id="networkInterfacesList">
+				</tbody>
+		</table>
+	</div>
+</body>
+<script src="./js/mdui.min.js"></script> 
+<script src="./js/base.js"></script>
+<script src="./js/util.js"></script>
+<script src="./js/config.js"></script>
+<script src="./js/api.js"></script> 
+<script >
+domReady(function(){
+	/**获取网卡信息*/
+	function doGetNetworkInterfaces(){
+		api.adminServer.getNetworkInterfaces(function(data){
+			networkInterfacesList.innerHTML="";
+			let names=Object.keys(data);
+			for(let name of names){
+				let networkInterfaces=data[name];
+				if(networkInterfaces.length==0){
+					let trEle=document.createElement("tr");
+					trEle.innerHTML="<td>"+name+"</td>";
+					let ns="-";
+					trEle.innerHTML+="<td>"+ns+"</td>"+"<td>"+ns+"</td>"+"<td>"+ns+"</td>"+"<td>"+ns+"</td>"+"<td>"+ns+"</td>"+"<td>"+ns+"</td>"+"<td>"+ns+"</td>"; 
+					networkInterfacesList.appendChild(trEle);
+					continue;
+				}
+				for(let i=0;i<networkInterfaces.length;i++){
+					let networkInterface=networkInterfaces[i];
+					let trEle=document.createElement("tr");
+					if(networkInterfaces.length==1){
+						trEle.innerHTML="<td>"+name+"</td>";
+					}else if(i==0){ 
+						trEle.innerHTML="<td rowspan='"+networkInterfaces.length+"'>"+name+"</td>";
+					}else{
+						
+					}					
+					trEle.innerHTML+="<td>"+networkInterface.family+"</td>"+"<td>"+networkInterface.address+"</td>"+"<td>"+networkInterface.netmask+"</td>"+"<td>"+networkInterface.mac+"</td>"+"<td>"+networkInterface.internal+"</td>"+"<td>"+notNullString(networkInterface.scopeid)+"</td>"+"<td>"+notNullString(networkInterface.cidr)+"</td>";
+					
+					networkInterfacesList.appendChild(trEle);
+				}
+			}
+		}); 
+	}
+	doGetNetworkInterfaces();
+});
+</script> 
+</html>

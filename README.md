@@ -1,2 +1,2 @@
 # mydash
-简单Linux系统监控
+一个简单Linux系统监控

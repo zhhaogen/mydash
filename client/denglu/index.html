@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+	<meta charset='utf-8'>
+	<title>登录</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<base href="../" />
+	<link rel="stylesheet" href="./css/mdui.min.css"> 
+	<link rel="stylesheet" href="./css/denglu.css">  
+</head>
+
+<body class="mdui-theme-primary-indigo mdui-theme-accent-pink">
+	<div class="mdui-container">
+		<table class="dengluForm mdui-shadow-2">
+			<tr>
+				<td style="text-align: right;">Api服务器:</td><td><div class="mdui-textfield">
+					<input class="mdui-textfield-input" placeholder="请输入Api服务器" required="required" id="apiText" type="text" />  
+				</div></td>
+			</tr>
+			<tr>
+				<td style="text-align: right;">RestPath调试:</td><td><label class="mdui-switch"><input   id="restPathCheck" type="checkbox" /> <i class="mdui-switch-icon"></i></label></td>
+			</tr>
+			<tr>
+				<td style="text-align: right;">用户名:</td><td><div class="mdui-textfield">
+					<input class="mdui-textfield-input" placeholder="请输入用户名" required="required" id="nameText" type="text" />
+				</div></td>
+			</tr>
+			<tr>
+				<td style="text-align: right;">密码:</td><td><div class="mdui-textfield">
+					<input class="mdui-textfield-input" placeholder="请输入密码" required="required" id="passwdText" type="password" />
+				</div></td>
+			</tr> 
+			<tr>
+				<td style="text-align: center;" colspan="2" ><button class="mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent" id="dengluBtn">登录</button></td>
+			</tr>
+		</table> 
+	</div>
+</body> 
+<script src="./js/mdui.min.js"></script>
+<script src="./js/base.js"></script>
+<script src="./js/config.js"></script>
+<script src="./js/api.js"></script> 
+<script src="./js/denglu.js"></script>
+</html>

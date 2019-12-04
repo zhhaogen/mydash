@@ -1,0 +1,17 @@
+table.dengluForm{
+	margin: 60px auto 0 auto; 
+	padding: 16px; 
+}
+table.dengluForm td{
+	padding:6px;
+}
+
+.dengluForm .mdui-textfield{
+	padding-top: 0px;
+	padding-bottom: 1px;
+}
+
+.mdui-snackbar-bottom, .mdui-snackbar-left-bottom, .mdui-snackbar-right-bottom{
+	bottom:16px;
+}
+
